@@ -1,8 +1,8 @@
 ### Project tasks
 
 - [x] Init base project
-- [ ] Init api app
-- [ ] Add models
+- [x] Init api app
+- [x] Add models
 - [ ] Add APIs
 - [ ] Add Unit test
 - [ ] Add deployment scripts

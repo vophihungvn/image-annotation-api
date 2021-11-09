@@ -21,7 +21,7 @@ class Label(BaseModel):
 
 
 class Image(BaseModel):
-    src = models.ImageField(upload_to="uploads")
+    src = models.ImageField(upload_to="images")
 
 
 class Tag(BaseModel):
