@@ -14,7 +14,21 @@ class APIResponse:
         return Response(result, status=status.HTTP_200_OK)
 
     @staticmethod
-    def error(errors):
+    def error(errors, status=status.HTTP_400_BAD_REQUEST):
         """Failure response function"""
-        result = {"status": status.HTTP_400_BAD_REQUEST, "data": errors}
-        return Response(result, status=status.HTTP_400_BAD_REQUEST)
+        result = {"status": status, "data": errors}
+        return Response(result, status=status)
+
+
+def update_attrs(instance, **kwargs):
+    """ Updates model instance attributes and saves the instance """
+    instance_pk = instance.pk
+    for key, value in kwargs.items():
+        if hasattr(instance, key):
+            setattr(instance, key, value)
+        else:
+            raise KeyError("Failed to update non existing attribute {}.{}".format(
+                instance.__class__.__name__, key
+            ))
+    instance.save(force_update=True)
+    return instance.__class__.objects.get(pk=instance_pk)

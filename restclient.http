@@ -1,0 +1,27 @@
+# Label requests
+
+## Create new Label
+POST http://localhost:8000/api/v1/labels
+content-type: application/json
+
+{
+    "name": "Car",
+    "category": "Vehicle"
+}
+
+###
+## Get all labels
+GET http://localhost:8000/api/v1/labels
+
+###
+## Update label
+PUT http://localhost:8000/api/v1/labels/1
+content-type: application/json
+
+{
+    "name": "Bike"
+}
+
+###
+## Delete label
+DELETE http://localhost:8000/api/v1/labels/1
