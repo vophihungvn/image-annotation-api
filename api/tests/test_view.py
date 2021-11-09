@@ -1,9 +1,9 @@
 from django.urls import reverse
-from rest_framework.test import APITestCase
 from api.models import Label
+from .test_base import BaseTestCase
 
 
-class TestDefaultView(APITestCase):
+class TestDefaultView(BaseTestCase):
     """
         Testcases for API views
     """
@@ -13,7 +13,7 @@ class TestDefaultView(APITestCase):
         self.assertEquals(res.status_code, 200)
 
 
-class TestLabelRoute(APITestCase):
+class TestLabelRoute(BaseTestCase):
     """
         Testcases for API routes
     """
