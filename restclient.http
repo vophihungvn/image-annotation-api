@@ -1,8 +1,12 @@
 # Label requests
+@baseUrl = http://localhost:8000
+@user = admin
+@password = F@k3P@ssw0rd
 
 ## Create new Label
-POST http://localhost:8000/api/v1/labels
+POST {{baseUrl}}/api/v1/labels
 content-type: application/json
+Authorization: Basic {{user}}:{{password}}
 
 {
     "name": "Car",
@@ -11,12 +15,14 @@ content-type: application/json
 ###
 
 ## Get all labels
-GET http://localhost:8000/api/v1/labels
+GET {{baseUrl}}/api/v1/labels
+Authorization: Basic {{user}}:{{password}}
 ###
 
 ## Update label
-PUT http://localhost:8000/api/v1/labels/1
+PUT {{baseUrl}}/api/v1/labels/4
 content-type: application/json
+Authorization: Basic {{user}}:{{password}}
 
 {
     "name": "Bike"
@@ -24,7 +30,8 @@ content-type: application/json
 ###
 
 ## Delete label
-DELETE http://localhost:8000/api/v1/labels/1
+DELETE {{baseUrl}}/api/v1/labels/4
+Authorization: Basic {{user}}:{{password}}
 
 
 ###
@@ -32,7 +39,8 @@ DELETE http://localhost:8000/api/v1/labels/1
 # Image request
 
 ## Upload image
-POST http://localhost:8000/api/v1/images
+POST {{baseUrl}}/api/v1/images
+Authorization: Basic {{user}}:{{password}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -44,26 +52,31 @@ Content-Type: image/png
 ###
 
 ## Get list images
-GET http://localhost:8000/api/v1/images
+GET {{baseUrl}}/api/v1/images
+Authorization: Basic {{user}}:{{password}}
 ###
 
 ## Get one image
-GET http://localhost:8000/api/v1/images/1
+GET {{baseUrl}}/api/v1/images/1
+Authorization: Basic {{user}}:{{password}}
 ###
 
 ## Delete image
-DELETE  http://localhost:8000/api/v1/images/1
+DELETE  {{baseUrl}}/api/v1/images/1
+Authorization: Basic {{user}}:{{password}}
 ###
 
 # Tag request
 
 ## Get all tags from image
 
-GET http://localhost:8000/api/v1/images/2/tags
+GET {{baseUrl}}/api/v1/images/2/tags
+Authorization: Basic {{user}}:{{password}}
 ###
 
 ## Create new Tag
-POST http://localhost:8000/api/v1/images/2/tags
+POST {{baseUrl}}/api/v1/images/2/tags
+Authorization: Basic {{user}}:{{password}}
 content-type: application/json
 
 {
@@ -78,11 +91,13 @@ content-type: application/json
 ###
 
 ## Get tag item
-GET http://localhost:8000/api/v1/tags/1
+GET {{baseUrl}}/api/v1/tags/1
+Authorization: Basic {{user}}:{{password}}
 ###
 
 ## Update tag item
-PUT http://localhost:8000/api/v1/tags/1
+PUT {{baseUrl}}/api/v1/tags/1
+Authorization: Basic {{user}}:{{password}}
 content-type: application/json
 
 {
@@ -96,5 +111,6 @@ content-type: application/json
 ###
 
 ## Delete tag item
-DELETE http://localhost:8000/api/v1/tags/1
+DELETE {{baseUrl}}/api/v1/tags/1
+Authorization: Basic {{user}}:{{password}}
 ###

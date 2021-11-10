@@ -35,17 +35,20 @@ def handle_label(request):
         GET: Get all labels
         POST: Create new label
     """
+    user = request.user
+
     if request.method == 'POST':
         # create new label
 
         label = Label(
             name=request.data["name"],
             category=request.data["category"],
+            created_by=user.id
         )
         label.save()
         return APIResponse.success(LabelSerializer(label).data)
 
-    labels = Label.objects.all()
+    labels = Label.objects.filter(created_by=user.id).all()
 
     return APIResponse.success(LabelSerializer(labels, many=True).data)
 
@@ -61,9 +64,17 @@ def handle_label_item(request, *args, **kwargs):
         DELETE: Delete label item
     """
 
+    user = request.user
+
     label_id = kwargs['id']
 
-    label = Label.objects.get(pk=label_id)
+    try:
+        label = Label.objects.get(pk=label_id, created_by=user.id)
+    except:
+        return APIResponse.error(
+            {"message": "Label not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
     if not label:
         return APIResponse.error(
             {"message": "Label not found"},
@@ -94,17 +105,19 @@ def handle_image(request, *args, **kwargs):
         GET: Get all images
         POST: Create new image
     """
+    user = request.user
     if request.method == 'POST':
         # create new image
         image = Image(
-            src=request.FILES['image']
+            src=request.FILES['image'],
+            created_by=user.id
         )
 
         image.save()
         return APIResponse.success(ImageSerializer(image).data)
 
     # List all images
-    images = Image.objects.all()
+    images = Image.objects.filter(created_by=user.id).all()
 
     return APIResponse.success(ImageSerializer(images, many=True).data)
 
@@ -119,9 +132,12 @@ def handle_image_item(request, *args, **kwargs):
         DELETE: Delete image item
     """
 
+    user = request.user
+
     image_id = kwargs['id']
-    image = Image.objects.get(pk=image_id)
-    if not image:
+    try:
+        image = Image.objects.get(pk=image_id, created_by=user.id)
+    except:
         return APIResponse.error(
             {"message": "Image not found"},
             status=status.HTTP_404_NOT_FOUND
@@ -146,9 +162,11 @@ def handle_image_tag(request, *args, **kwargs):
         POST: Add new image label
     """
 
+    user = request.user
+
     image_id = kwargs['id']
     try:
-        image = Image.objects.get(pk=image_id)
+        image = Image.objects.get(pk=image_id, created_by=user.id)
     except:
         return APIResponse.error(
             {"message": "Image not found"},
@@ -159,7 +177,7 @@ def handle_image_tag(request, *args, **kwargs):
         label_id = request.data['label_id']
 
         try:
-            label = Label.objects.get(pk=image_id)
+            label = Label.objects.get(pk=label_id, created_by=user.id)
         except:
             return APIResponse.error(
                 {"message": "Label not found"},
@@ -169,14 +187,15 @@ def handle_image_tag(request, *args, **kwargs):
         tag = Tag(
             image=image,
             label=label,
-            position=request.data.get('position')
+            position=request.data.get('position'),
+            created_by=user.id
         )
 
         tag.save()
 
         return APIResponse.success(TagSerializer(tag).data)
 
-    tags = Tag.objects.filter(image_id=image_id)
+    tags = Tag.objects.filter(image_id=image_id, created_by=user.id)
 
     return APIResponse.success(TagSerializer(tags, many=True).data)
 
@@ -192,9 +211,10 @@ def handle_tag_item(request, *args, **kwargs):
         DELETE: Delete tag item
     """
 
+    user = request.user
     tag_id = kwargs['id']
 
-    tag = Tag.objects.get(pk=tag_id)
+    tag = Tag.objects.get(pk=tag_id, created_by=user.id)
     if not tag:
         return APIResponse.error(
             {"message": "Tag not found"},

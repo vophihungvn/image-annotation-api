@@ -1,6 +1,6 @@
 from django.urls import reverse
 from api.models import Label
-from .test_base import BaseTestCase
+from api.tests.test_base import BaseTestCase
 
 
 class TestDefaultView(BaseTestCase):
@@ -21,7 +21,8 @@ class TestLabelRoute(BaseTestCase):
     def setUp(self) -> None:
         Label.objects.create(
             name="Car",
-            category="Vehicle"
+            category="Vehicle",
+            created_by=1
         )
         return super().setUp()
 
@@ -56,3 +57,21 @@ class TestLabelRoute(BaseTestCase):
 
         res = self.client.get(reverse("label"), format="json")
         self.assertEquals(len(res.data['data']), 0)
+
+    def test_user_can_access_own_result(self):
+        res = self.client.get(reverse("label"), format="json")
+        self.assertEquals(len(res.data['data']), 1)
+
+        self.client.force_authenticate(self.user2)
+        res = self.client.get(reverse("label"), format="json")
+        self.assertEquals(len(res.data['data']), 0)
+
+
+class TestImageRoutes(BaseTestCase):
+    def setUp(self) -> None:
+        Label.objects.create(
+            name="Car",
+            category="Vehicle",
+            created_by=1
+        )
+        return super().setUp()

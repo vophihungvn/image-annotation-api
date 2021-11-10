@@ -3,6 +3,7 @@
 - [x] Init base project
 - [x] Init api app
 - [x] Add models
-- [ ] Add APIs
-- [ ] Add Unit test
+- [x] Add APIs
+- [x-] Add Unit test
+- [ ] Add authenticate user and resource
 - [ ] Add deployment scripts
