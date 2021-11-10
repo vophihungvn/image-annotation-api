@@ -1,0 +1,36 @@
+version: "3.4"
+
+services:
+  imageannotate:
+    image: imageannotate
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: >
+      sh -c "./scripts/wait-for-postgres.sh db:5432 &&
+      python manage.py collectstatic --no-input --settings=image_annotate.settings.production &&
+      python manage.py migrate --settings=image_annotate.settings.production &&
+      ./entry.sh"
+
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_NAME=image-annotate
+      - DB_PASSWORD=P@s5w0rb
+
+    volumes:
+      - ./uploads:/app/uploads
+
+    depends_on:
+      - db
+
+    ports:
+      - 8000:8000
+
+  db:
+    image: "postgres:11"
+    environment:
+      - POSTGRES_PASSWORD=P@s5w0rb
+      - POSTGRES_DB=image-annotate
+    volumes:
+      - ./data:/var/lib/postgresql/data
