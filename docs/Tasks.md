@@ -4,6 +4,8 @@
 - [x] Init api app
 - [x] Add models
 - [x] Add APIs
+- [x] Add authenticate user and resource
 - [x-] Add Unit test
-- [ ] Add authenticate user and resource
-- [ ] Add deployment scripts
+- [ ] Add deployment scripts (docker)
+- [ ] Add types
+- [ ] Add deployment instruction
