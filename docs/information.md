@@ -61,3 +61,7 @@ Note:
 - Step (1) only do once
 - When new release is made, step (2) and (4) will be done
 - For zero downtime during deployment, we can start 2 backend server and create a load balancer to share request between them. When deploy, we deploy one by one so every request will have a handler
+
+- For further scale and automate the deployment, we can setup with following infra
+
+![Simple deployment](./images/deployment-advanced.png)

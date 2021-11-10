@@ -6,6 +6,6 @@
 - [x] Add APIs
 - [x] Add authenticate user and resource
 - [x-] Add Unit test
-- [ ] Add deployment scripts (docker)
+- [x] Add deployment scripts (docker)
 - [ ] Add types
-- [ ] Add deployment instruction
+- [x] Add development and testing instruction
