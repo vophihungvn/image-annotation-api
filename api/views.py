@@ -1,6 +1,7 @@
 """
     Api handlers
 """
+from datetime import datetime, timedelta
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import (
@@ -12,6 +13,8 @@ from api.utils import APIResponse, update_attrs
 from api.models import Image, Label, Tag
 from api.serializers import ImageSerializer, LabelSerializer, TagSerializer
 from rest_framework.parsers import MultiPartParser, FileUploadParser
+
+TIME_FORMAT = "%Y-%m-%d"
 
 
 @api_view(['GET'])
@@ -112,7 +115,25 @@ def handle_image(request, *args, **kwargs):
         return APIResponse.success(ImageSerializer(image).data)
 
     # List all images
-    images = Image.objects.filter(created_by=user.id).all()
+    images = Image.objects.filter(created_by=user.id)
+
+    # query image from date
+    if request.query_params.get('from') is not None:
+        images = images.filter(created_on__gte=datetime.strptime(
+            request.query_params.get('from'), TIME_FORMAT))
+
+    # query image to date
+    if request.query_params.get('to') is not None:
+        images = images.filter(created_on__lte=datetime.strptime(
+            request.query_params.get('to'), TIME_FORMAT))
+
+    # query image within date
+    if request.query_params.get('from') is not None:
+        query_time = datetime.strptime(
+            request.query_params.get('from'), TIME_FORMAT)
+        images = images.filter(created_on__gte=query_time).filter(
+            created_on__lte=query_time + timedelta(days=1))
+    images = images.all()
 
     return APIResponse.success(ImageSerializer(images, many=True).data)
 

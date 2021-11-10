@@ -28,3 +28,10 @@ class Tag(BaseModel):
     label = models.ForeignKey(Label, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
     position = models.JSONField()
+
+
+class RequestTracking(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    path = models.TextField()
+    method = models.TextField()
+    status = models.IntegerField()
