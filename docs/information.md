@@ -15,6 +15,7 @@
 | api                | Django API app                                  |
 | --migrations       | DB migrations files                             |
 | --tests            | Test files                                      |
+| --middlewares.py   | Middleware to track user request                |
 | --models.py        | Defines DB models to use in project             |
 | --serializers.py   | Defines models<->dict serializers               |
 | --urls.py          | Defines API URLs                                |
