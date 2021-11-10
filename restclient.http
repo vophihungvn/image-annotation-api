@@ -75,12 +75,12 @@ Authorization: Basic {{user}}:{{password}}
 ###
 
 ## Create new Tag
-POST {{baseUrl}}/api/v1/images/2/tags
+POST {{baseUrl}}/api/v1/images/7/tags
 Authorization: Basic {{user}}:{{password}}
 content-type: application/json
 
 {
-    "label_id": 2,
+    "label_id": 5,
     "position": {
         "top": 100,
         "left": 100,

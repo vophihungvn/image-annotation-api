@@ -2,11 +2,9 @@
     Api handlers
 """
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import (
     api_view,
-    authentication_classes,
     parser_classes,
     permission_classes
 )
@@ -27,7 +25,6 @@ def default(_):
 
 
 @api_view(['GET', 'POST'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def handle_label(request):
     """
@@ -54,7 +51,6 @@ def handle_label(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def handle_label_item(request, *args, **kwargs):
     """
@@ -97,7 +93,6 @@ def handle_label_item(request, *args, **kwargs):
 
 @api_view(['GET', 'POST'])
 @parser_classes([MultiPartParser, FileUploadParser])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def handle_image(request, *args, **kwargs):
     """
@@ -123,7 +118,6 @@ def handle_image(request, *args, **kwargs):
 
 
 @api_view(['GET', 'DELETE'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def handle_image_item(request, *args, **kwargs):
     """
@@ -153,7 +147,6 @@ def handle_image_item(request, *args, **kwargs):
 
 
 @api_view(['GET', 'POST'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def handle_image_tag(request, *args, **kwargs):
     """
@@ -201,7 +194,6 @@ def handle_image_tag(request, *args, **kwargs):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def handle_tag_item(request, *args, **kwargs):
     """

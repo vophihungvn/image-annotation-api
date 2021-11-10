@@ -9,7 +9,7 @@
 - Start python server `./scripts/run_local.sh`
 - Install [VScode rest client](https://github.com/Huachao/vscode-restclient)
 - Open `restclient.http` file. Change username and password on the top of the file with the super user you created
-- Using request inside `restclient.http`
+- Using request inside `restclient.http`. Please change the request information to make the request succesfully
 
 ### Run unit test
 
